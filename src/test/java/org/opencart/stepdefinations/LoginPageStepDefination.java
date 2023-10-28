@@ -11,21 +11,27 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.Assert;
+import org.testng.log4testng.Logger;
+
 
 public class LoginPageStepDefination {
 
     private WebDriver driver;
+    Logger log = Logger.getLogger(LoginPageStepDefination.class);
     private LoginPage loginPage;
 
     @Before
     public void setup(){
+        log.info("*******************************Starting the Test Execution *******************************");
         driver = new EdgeDriver();
+        log.info("*******************************Opening the Edge Browser*******************************");
     }
 
     @After
     public void tearDown(){
         if(driver!=null){
             driver.quit();
+            log.info("*******************************Browser has been CLosed*******************************");
         }
     }
 
@@ -33,12 +39,16 @@ public class LoginPageStepDefination {
     @Given("I am on the OpenCart login page")
     public void i_am_on_the_open_cart_login_page() {
         driver.get("https://naveenautomationlabs.com/opencart/index.php?route=account/login");
+        log.info("*******************************Entering the URL*******************************");
         loginPage = new LoginPage(driver);
+        log.info("*******************************On LOgin Page of OpenCart*******************************");
+        log.warn("*******************************This is just a warning message!!!!*******************************");
 
     }
 
     @Given("I have entered a valid username and password")
     public void i_have_entered_a_valid_username_and_password() {
+        log.info("*******************************Entering the Username and Password******************************");
         loginPage.enterEmail("mota@gmail.com");
         loginPage.enterPassword("12345678");
     }
@@ -51,12 +61,14 @@ public class LoginPageStepDefination {
 
     @When("I click on the login button")
     public void i_click_on_the_login_button() {
+        log.info("*******************************Clicking the Login Button*******************************");
         loginPage.clickLoginButton();
     }
 
     @Then("I should be logged in successfully")
     public void i_should_be_logged_in_successfully() throws InterruptedException {
         Assert.assertEquals(loginPage.checkeditAccountLink(), true);
+        log.info("*******************************Logged In Successfully******************************* ");
     }
 
 
